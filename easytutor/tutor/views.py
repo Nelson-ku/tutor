@@ -6,4 +6,8 @@ def login(request):
 
     return render(request,'tutor/login.html')
 
+def register(request):
+
+    return render(request,'tutor/register.html')
+
 
