@@ -13,3 +13,8 @@ def register(request):
 def tutorlanding(request):
 
     return render(request, 'tutor/tutorlanding.html')
+
+
+def Tutorform(request):
+
+    return render (request,'tutor/tutorform.html')
