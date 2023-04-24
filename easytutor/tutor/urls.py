@@ -8,7 +8,8 @@ urlpatterns=[
     path('',views.login,name='login'),
     path('register/',views.register, name='register'),
     path('tutorland',views.tutorlanding,name='tutorland'),
-    path('tutorform/',views.Tutorform,name='tutorform')
+    path('tutorform/',views.Tutorform,name='tutorform'),
+    path('questions',views.question,name='questions')
 ]
 
 

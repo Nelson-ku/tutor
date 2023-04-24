@@ -18,3 +18,7 @@ def tutorlanding(request):
 def Tutorform(request):
 
     return render (request,'tutor/tutorform.html')
+
+def question(request):
+
+    return render (request, 'tutor/Questions.html')

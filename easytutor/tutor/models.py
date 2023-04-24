@@ -30,6 +30,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     answer = models.TextField()
+    explanation=models.TextField()
     rating = models.IntegerField()
     comments = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
