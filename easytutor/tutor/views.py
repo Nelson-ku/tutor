@@ -22,3 +22,7 @@ def Tutorform(request):
 def question(request):
 
     return render (request, 'tutor/Questions.html')
+
+def payments(request):
+
+    return render (request, 'tutor/payment.html')

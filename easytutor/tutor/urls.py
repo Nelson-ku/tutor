@@ -9,7 +9,8 @@ urlpatterns=[
     path('register/',views.register, name='register'),
     path('tutorland',views.tutorlanding,name='tutorland'),
     path('tutorform/',views.Tutorform,name='tutorform'),
-    path('questions',views.question,name='questions')
+    path('questions',views.question,name='questions'),
+    path('payment',views.payments,name='payment')
 ]
 
 
