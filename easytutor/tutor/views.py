@@ -26,3 +26,7 @@ def question(request):
 def payments(request):
 
     return render (request, 'tutor/payment.html')
+
+def dashboards(request):
+
+    return render (request, 'tutor/dashboard.html')

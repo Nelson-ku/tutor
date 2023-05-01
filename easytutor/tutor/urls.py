@@ -10,7 +10,8 @@ urlpatterns=[
     path('tutorland',views.tutorlanding,name='tutorland'),
     path('tutorform/',views.Tutorform,name='tutorform'),
     path('questions',views.question,name='questions'),
-    path('payment',views.payments,name='payment')
+    path('payment',views.payments,name='payment'),
+    path('dashboard',views.dashboards,name='dashboard')
 ]
 
 
