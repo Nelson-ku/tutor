@@ -10,6 +10,10 @@ def register(request):
 
     return render(request,'tutor/register.html')
 
+def tutorRegister(request):
+
+    return render(request,'tutor/reg-tutor.html')
+
 def tutorlanding(request):
 
     return render(request, 'tutor/tutorlanding.html')
