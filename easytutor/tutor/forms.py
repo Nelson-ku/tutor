@@ -6,6 +6,7 @@ from .models import Student,Tutor
 class StudentRegistrationForm(UserCreationForm):
     first_name=forms.CharField(max_length=255)
     last_name=forms.CharField(max_length=255)
+    username=forms.CharField(max_length=255)
 
     class Meta:
         model=Student
@@ -14,6 +15,7 @@ class StudentRegistrationForm(UserCreationForm):
 class TutorRegistrationForm(UserCreationForm):
     first_name=forms.CharField(max_length=255)
     last_name=forms.CharField(max_length=255)
+    username=forms.CharField(max_length=255)
 
     class Meta:
         model=Tutor
@@ -21,4 +23,4 @@ class TutorRegistrationForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     class Meta:
-        fields=('email','password')
+        fields=('username','password')

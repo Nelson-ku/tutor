@@ -1,24 +1,46 @@
 from django.db import models
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser,BaseUserManager
+
 
 # Create your models here.
 
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=255)
-    username=models.CharField(max_length=30)
-    last_name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+class User(AbstractUser):
+    class Role(models.TextChoices):
+        ADMIN='ADMIN','Admin'
+        STUDENT='STUDENT','Student'
+        TUTOR='TUTOR','Tutor'
+
+    base_role=Role.ADMIN
+
+    role= models.CharField(max_length=50,choices=Role.choices)
+
+class StudentManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        results = super().get_queryset(*args, **kwargs)
+        return results.filter(role=User.Role.STUDENT)
+
+
+class Student(User):
+
+    base_role = User.Role.STUDENT
+
+    student=StudentManager()
+
+
+class TutorManager(BaseUserManager):
+    def get_queryset(self, *args, **kwargs):
+        results = super().get_queryset(*args, **kwargs)
+        return results.filter(role=User.Role.TUTOR)
+
 
 class Tutor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    username=models.CharField(max_length=30)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+    base_role = User.Role.STUDENT
+
+    student=StudentManager()
+
+
 
 class Question(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

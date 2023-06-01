@@ -12,7 +12,7 @@ def login(request):
         if form.is_valid():
             user=form.save()
             login(request,user)
-            return redirect('home')# replaced by home
+            return redirect('tutorland')# replaced by home
         else:
             form=LoginForm()
     return render(request,'tutor/login.html')
@@ -25,7 +25,7 @@ def register(request):
         if form.is_valid():
             user=form.save()
             login(request,user)
-            return redirect('home')# replace with student home
+            return redirect('login')# replace with student home
         else:
             form=StudentRegistrationForm()
     return render(request,'tutor/register.html')
