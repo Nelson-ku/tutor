@@ -1,10 +1,42 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login,authenticate
 from .forms import StudentRegistrationForm,TutorRegistrationForm,LoginForm
-
-
+from django.contrib import messages
+from .models import User
 
 # Create your views here.
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # Try to authenticate the user
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # If authentication is successful, log the user in
+            login(request, user)
+
+            # Redirect the user to the appropriate page based on their role
+            if user.role == User.Role.ADMIN:
+                # Redirect to admin dashboard
+                return redirect('admin_dashboard')
+            elif user.role == User.Role.STUDENT:
+                # Redirect to student dashboard
+                return redirect('questions')
+            elif user.role == User.Role.TUTOR:
+                # Redirect to tutor dashboard
+                return redirect('tutorland')
+        else:
+            # Authentication failed, show an error message
+            messages.info(request, 'username or password is incorrect')
+
+
+
+    # If it's a GET request, render the login template
+    return render(request, 'tutor/login.html')
 
 def login(request):
     if request.method=='POST':
@@ -36,7 +68,7 @@ def tutorRegister(request):
         if form.is_valid():
             user=form.save()
             login(request,user)
-            return redirect('home')
+            return redirect('tutorland')
         else:
             form=TutorRegistrationForm()
 

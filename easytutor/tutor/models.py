@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.contrib.auth.models import AbstractUser,BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 
 
 # Create your models here.
@@ -14,6 +14,22 @@ class User(AbstractUser):
     base_role=Role.ADMIN
 
     role= models.CharField(max_length=50,choices=Role.choices)
+
+    groups = models.ManyToManyField(
+        Group,
+        related_name='tutor_users',
+        blank=True,
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+        verbose_name='groups',
+    )
+
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name='tutor_users',
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
 
 class StudentManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
@@ -34,7 +50,7 @@ class TutorManager(BaseUserManager):
         return results.filter(role=User.Role.TUTOR)
 
 
-class Tutor(models.Model):
+class Tutor(User):
 
     base_role = User.Role.STUDENT
 

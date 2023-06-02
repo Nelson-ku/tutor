@@ -180,6 +180,10 @@ input {
 		<div class="form-container log-in-container">
 			<form action="#" method="POST">
 				<h1>Login</h1>
+				{% csrf_token %}
+				{% for message in messeges %}
+				<p>{{messages}}</p>
+				{% end for %}
 				<div class="social-container">
 					<a href="#" class="social"><i class="fa fa-facebook fa-2x"></i></a>
 					<a href="#" class="social"><i class="fab fa fa-twitter fa-2x"></i></a>
