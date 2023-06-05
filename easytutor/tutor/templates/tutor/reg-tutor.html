@@ -24,12 +24,13 @@
 			<form action="#" method="POST">
 				{% csrf_token %}
 				<h1>Register</h1>
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Last Name">
-				<input type="username" placeholder="username" />
-				<input type="password1" placeholder="Password" />
-				<input type="password2" placeholder="confirm Password" />
-				<button>Register</button>
+				<div class="input">{{form.first_name}}</div>
+				<div class="input">{{form.first_name}}</div>
+				<div class="input">{{form.username}}</div>
+				<div class="input">{{form.password1}}</div>
+				<div class="input">{{form.password2}}</div>
+				<button type="submit" >Register</button>
+				{{form.errors}}
 				<br>
 				<button><a href="{% url 'register' %}">Register As Student</a> </button>
               <a href="#">Already have an account?</a>

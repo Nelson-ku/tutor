@@ -7,10 +7,10 @@ from .models import User
 # Create your views here.
 
 
-def login_view(request):
+def login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         # Try to authenticate the user
         user = authenticate(request, username=username, password=password)
@@ -38,41 +38,49 @@ def login_view(request):
     # If it's a GET request, render the login template
     return render(request, 'tutor/login.html')
 
-def login(request):
-    if request.method=='POST':
-        form=LoginForm(request.POST)
-        if form.is_valid():
-            user=form.save()
-            login(request,user)
-            return redirect('tutorland')# replaced by home
-        else:
-            form=LoginForm()
-    return render(request,'tutor/login.html')
+# def login(request):
+#     form=LoginForm()
+#     if request.method=='POST':
+#         form=LoginForm(request.POST)
+#         if form.is_valid():
+#             user=form.save()
+#             login(request,user)
+#             return redirect('tutorland')# replaced by home
+#         else:
+#             form=LoginForm()
+#     context={'form':form}
+#     return render(request,'tutor/login.html',context)
 
 
 #student registration
 def register(request):
+    form = StudentRegistrationForm()
+
     if request.method=='POST':
         form=StudentRegistrationForm(request.POST)
         if form.is_valid():
             user=form.save()
             login(request,user)
-            return redirect('login')# replace with student home
+            return redirect('login')#replace with student home
         else:
             form=StudentRegistrationForm()
-    return render(request,'tutor/register.html')
+
+    context={'form':form}
+    return render(request,'tutor/register.html',context)
 
 def tutorRegister(request):
+    form = TutorRegistrationForm()
+
     if request.method=='POST':
         form=TutorRegistrationForm(request.POST)
         if form.is_valid():
             user=form.save()
             login(request,user)
-            return redirect('tutorland')
+            return redirect('login')
         else:
             form=TutorRegistrationForm()
-
-    return render(request,'tutor/reg-tutor.html')
+    context={'form': form}
+    return render(request,'tutor/reg-tutor.html',context)
 
 def tutorlanding(request):
 
