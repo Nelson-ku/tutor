@@ -17,7 +17,7 @@ class User(AbstractUser):
 
     groups = models.ManyToManyField(
         Group,
-        related_name='tutor_users',
+        related_name='Tutor',
         blank=True,
         help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
         verbose_name='groups',
@@ -25,7 +25,7 @@ class User(AbstractUser):
 
     user_permissions = models.ManyToManyField(
         Permission,
-        related_name='tutor_users',
+        related_name='Tutor',
         blank=True,
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',
@@ -52,9 +52,9 @@ class TutorManager(BaseUserManager):
 
 class Tutor(User):
 
-    base_role = User.Role.STUDENT
+    base_role = User.Role.TUTOR
 
-    student=StudentManager()
+    tutor=TutorManager()
 
 
 
