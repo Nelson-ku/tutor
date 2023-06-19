@@ -44,6 +44,8 @@ class Student(User):
     student=StudentManager()
 
 
+
+
 class TutorManager(BaseUserManager):
     def get_queryset(self, *args, **kwargs):
         results = super().get_queryset(*args, **kwargs)

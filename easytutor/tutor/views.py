@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login,authenticate
-from .forms import StudentRegistrationForm,TutorRegistrationForm,LoginForm
+from django.contrib.auth import authenticate, login,logout
+from .forms import StudentRegistrationForm, TutorRegistrationForm, LoginForm
 from django.contrib import messages
 from .models import User
+
 
 # Create your views here.
 
 
-def login(request):
-    form=LoginForm()
+def Login(request):
     if request.method == 'POST':
-        form=LoginForm(request.POST)
         username = request.POST.get('username')
         password = request.POST.get('password')
 
@@ -31,9 +30,10 @@ def login(request):
             # Authentication failed, show an error message
             messages.info(request, 'username or password is incorrect')
 
-    context={'form':form}
+    context = {}
     # If it's a GET request, render the login template
-    return render(request, 'tutor/login.html',context)
+    return render(request, 'tutor/login.html', context)
+
 
 # def login(request):
 #     form=LoginForm()
@@ -49,53 +49,56 @@ def login(request):
 #     return render(request,'tutor/login.html',context)
 
 
-#student registration
+# student registration
 def register(request):
     form = StudentRegistrationForm()
 
-    if request.method=='POST':
-        form=StudentRegistrationForm(request.POST)
+    if request.method == 'POST':
+        form = StudentRegistrationForm(request.POST)
         if form.is_valid():
-            user=form.save()
+            user = form.save()
 
-            return redirect('login')#replace with student home
+            return redirect('login')  # replace with student home
         else:
-            form=StudentRegistrationForm()
+            form = StudentRegistrationForm()
 
-    context={'form':form}
-    return render(request,'tutor/register.html',context)
+    context = {'form': form}
+    return render(request, 'tutor/register.html', context)
+
 
 def tutorRegister(request):
     form = TutorRegistrationForm()
 
-    if request.method=='POST':
-        form=TutorRegistrationForm(request.POST)
+    if request.method == 'POST':
+        form = TutorRegistrationForm(request.POST)
         if form.is_valid():
-            user=form.save()
+            user = form.save()
 
             return redirect('login')
         else:
-            form=TutorRegistrationForm()
-    context={'form': form}
-    return render(request,'tutor/reg-tutor.html',context)
+            form = TutorRegistrationForm()
+    context = {'form': form}
+    return render(request, 'tutor/reg-tutor.html', context)
+
 
 def tutorlanding(request):
-
     return render(request, 'tutor/tutorlanding.html')
 
 
 def Tutorform(request):
+    return render(request, 'tutor/tutorform.html')
 
-    return render (request,'tutor/tutorform.html')
 
 def question(request):
+    return render(request, 'tutor/Questions.html')
 
-    return render (request, 'tutor/Questions.html')
 
 def payments(request):
+    return render(request, 'tutor/payment.html')
 
-    return render (request, 'tutor/payment.html')
 
 def dashboards(request):
+    return render(request, 'tutor/dashboard.html')
 
-    return render (request, 'tutor/dashboard.html')
+def logoutUser(request):
+    logout(request)
